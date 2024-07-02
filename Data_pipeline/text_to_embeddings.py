@@ -8,10 +8,13 @@ saves the DataFrame including "text_chunks" and "embeddings" in the csv file "em
 import os
 import requests
 import pandas as pd
+from dotenv import load_dotenv
 import numpy as np
 
 # hugging face token
-os.environ['hf_token'] =  'testtoken123'
+load_dotenv()
+# os.environ['hf_token'] =  'testtoken123'
+HUGGING_FACE_TOKEN = os.getenv("HUGGING_FACE_TOKEN")
 # os.environ['hf_token'] = 'testtoken123'
 
 # example text snippets we want to translate into vector embeddings
@@ -52,11 +55,11 @@ def _get_embeddings(text_chunk):
     model_id = "sentence-transformers/all-MiniLM-L6-v2"
 
     # you can find the token to the hugging face api in your settings page https://huggingface.co/settings/tokens
-    hf_token = os.environ['hf_token']#os.environ.get('hf_token')
-
+    # hf_token = os.environ['hf_token']#os.environ.get('hf_token')
+    HUGGING_FACE_TOKEN = os.getenv("HUGGING_FACE_TOKEN")
     # API endpoint for embedding model
     api_url = f"https://api-inference.huggingface.co/pipeline/feature-extraction/{model_id}"
-    headers = {"Authorization": my_token}
+    headers = {"Authorization": f"Bearer {HUGGING_FACE_TOKEN}"}
 
     # call API
     response = requests.post(api_url, headers=headers, json={"inputs": text_chunk, "options": {"wait_for_model": True}})

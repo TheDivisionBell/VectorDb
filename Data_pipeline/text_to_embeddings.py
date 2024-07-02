@@ -11,8 +11,7 @@ import pandas as pd
 import numpy as np
 
 # hugging face token
-os.environ['hf_token'] =  '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'
-my_token = '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'
+os.environ['hf_token'] =  'testtoken123'
 # os.environ['hf_token'] = 'testtoken123'
 
 # example text snippets we want to translate into vector embeddings
